@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABC2host Client Intake Brief — American Brand Code</title>
+<meta name="description" content="Interactive client onboarding brief for American Brand Code / ABC2host — brand, digital infrastructure, creative, and media buying setup." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --accent: #ff5e36;
+    --accent-dim: #a83f24;
+    --blue: #58a6ff;
+    --mute: #8b949e;
+    --text: #f0f6fc;
+    --radius: 7px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #0d1117; }
+
+  a { color: inherit; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    background: rgba(13, 17, 23, 0.9);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .brand-sep { color: var(--border); font-weight: 400; }
+  .brand-sub { color: var(--mute); font-weight: 500; font-size: 14px; }
+  .portal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--border);
+    background: #11151c;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 7px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .portal-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px 1px var(--accent);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4.4vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    margin: 0 0 18px;
+    max-width: 16ch;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--mute);
+    font-size: 16px;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  /* ---------- Progress rail ---------- */
+  .rail-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px 8px;
+  }
+  .rail {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--card);
+  }
+  .rail-step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.2s ease;
+  }
+  .rail-step:last-child { border-right: none; }
+  .rail-step:hover { background: #1c222b; }
+  .rail-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    color: var(--mute);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .rail-step.active .rail-num {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 94, 54, 0.15);
+  }
+  .rail-step.done .rail-num {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0d1117;
+  }
+  .rail-label { font-size: 13px; font-weight: 600; color: var(--mute); }
+  .rail-step.active .rail-label, .rail-step.done .rail-label { color: var(--text); }
+
+  /* ---------- Layout ---------- */
+  .layout {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 100px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  @media (min-width: 960px) {
+    .layout { grid-template-columns: minmax(0, 1fr) 380px; align-items: start; }
+  }
+
+  /* ---------- Form sections ---------- */
+  .section {
+    scroll-margin-top: 100px;
+  }
+  .section + .section { margin-top: 44px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .section-chip {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .section-head h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-head p {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: var(--mute);
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 620px) {
+    .field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  }
+
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--mute);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 11px 13px;
+    font-size: 14.5px;
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238b949e' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+    padding-right: 34px;
+  }
+  .field textarea { resize: vertical; min-height: 96px; }
+  .field input::placeholder, .field textarea::placeholder { color: #5b6673; }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 94, 54, 0.18);
+  }
+
+  .field-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ---------- Summary panel ---------- */
+  .summary-wrap { position: relative; }
+  @media (min-width: 960px) {
+    .summary-wrap { position: sticky; top: 92px; }
+  }
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+  }
+  .summary-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .summary-top h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .summary-top span {
+    font-size: 11px;
+    color: var(--mute);
+    font-weight: 600;
+  }
+  .summary-sub {
+    font-size: 12.5px;
+    color: var(--mute);
+    margin: 0 0 16px;
+  }
+
+  .summary-empty {
+    font-size: 13.5px;
+    color: #5b6673;
+    padding: 18px 0;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+
+  .summary-group { margin-bottom: 14px; }
+  .summary-group:last-child { margin-bottom: 0; }
+  .summary-group h4 {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    margin: 0 0 8px;
+  }
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid #1e242c;
+    font-size: 13px;
+  }
+  .summary-line:last-child { border-bottom: none; }
+  .summary-line dt { color: var(--mute); flex-shrink: 0; }
+  .summary-line dd { margin: 0; text-align: right; font-weight: 500; }
+  .summary-note {
+    font-size: 13px;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .summary-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn {
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    background: var(--accent);
+    color: #1a0d08;
+  }
+  .btn-primary:hover { background: #ff7550; box-shadow: 0 0 0 4px rgba(255,94,54,0.18); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%) translateY(20px);
+    background: #161b22;
+    border: 1px solid var(--accent);
+    color: var(--text);
+    padding: 13px 20px;
+    border-radius: var(--radius);
+    font-size: 13.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 100;
+    max-width: min(90vw, 420px);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  footer {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
+    color: #5b6673;
+    font-size: 12.5px;
+  }
+
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span>AMERICAN BRAND CODE</span>
+      <span class="brand-sep">|</span>
+      <span class="brand-sub">ABC2host Intake Portal</span>
+    </div>
+    <div class="portal-badge">ABC2HOST SECURE PORTAL</div>
+  </div>
+</div>
+
+<section class="hero">
+  <h1>Launch &amp; scale your <span>Brand Code</span></h1>
+  <p>Complete this interactive design brief to kick off your brand, digital infrastructure, creative, and media buying setup with our senior team.</p>
+</section>
+
+<div class="rail-wrap">
+  <div class="rail" id="rail">
+    <div class="rail-step active" data-target="section-1">
+      <span class="rail-num">1</span>
+      <span class="rail-label">Client Profile</span>
+    </div>
+    <div class="rail-step" data-target="section-2">
+      <span class="rail-num">2</span>
+      <span class="rail-label">Brand Assets</span>
+    </div>
+    <div class="rail-step" data-target="section-3">
+      <span class="rail-num">3</span>
+      <span class="rail-label">Content &amp; Setup</span>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- ================= FORM ================= -->
+  <form id="briefForm">
+
+    <!-- Section 1 -->
+    <div class="section" id="section-1">
+      <div class="section-head">
+        <span class="section-chip">1</span>
+        <div>
+          <h2>Client profile &amp; project specs</h2>
+          <p>Who you are and what this engagement covers.</p>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="clientName">Client / business name</label>
+          <input type="text" id="clientName" name="clientName" placeholder="e.g., Acme Corp / Brand Name">
+        </div>
+
+        <div class="field">
+          <label for="projectScope">Primary project scope</label>
+          <select id="projectScope" name="projectScope">
+            <option value="">Select scope</option>
+            <option>Full MENA Brand Launch (Brand + Web + Media)</option>
+            <option>Web &amp; Hosting Infrastructure (ABC2host)</option>
+            <option>Performance Media Buying &amp; Paid Acquisition</option>
+            <option>Brand Repositioning &amp; Rebranding</option>
+            <option>ShadowCode™ Agency Capacity Support</option>
+          </select>
+        </div>
+
+        <div class="field-grid cols-2" style="grid-column: 1 / -1;">
+          <div class="field">
+            <label for="region">Target operational region</label>
+            <select id="region" name="region">
+              <option value="">Select region</option>
+              <option>Egypt</option>
+              <option>Saudi Arabia</option>
+              <option>United Arab Emirates</option>
+              <option>Kuwait</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="status">Project status</label>
+            <select id="status" name="status">
+              <option value="">Select status</option>
+              <option>Just Starting / Concept</option>
+              <option>Planning &amp; Strategy</option>
+              <option>Active / In Progress</option>
+              <option>Scaling &amp; Expansion</option>
+              <option>Agency Partnering</option>
+              <option>Rebranding &amp; Updates</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="budget">Monthly budget / commercial tier</label>
+          <select id="budget" name="budget">
+            <option value="">Select tier</option>
+            <option>Less than 25,000 EGP / month</option>
+            <option>25,000 – 50,000 EGP / month</option>
+            <option>50,000 – 100,000 EGP / month</option>
+            <option>100,000+ EGP / month</option>
+          </select>
+        </div>
+
+        <div class="field-row-2">
+          <div class="field">
+            <label for="startDate">Start date</label>
+            <input type="date" id="startDate" name="startDate">
+          </div>
+          <div class="field">
+            <label for="deadline">Delivery deadline</label>
+            <input type="date" id="deadline" name="deadline">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section" id="section-2">
+      <div class="section-head">
+        <span class="section-chip">2</span>
+        <div>
+          <h2>Brand assets &amp; offer setup</h2>
+          <p>What you already have, and what the ABC team needs to build.</p>
+        </div>
+      </div>
+
+      <div class="field-grid cols-2">
+        <div class="field">
+          <label for="logoAssets">Logo &amp; asset availability</label>
+          <select id="logoAssets" name="logoAssets">
+            <option value="">Select availability</option>
+            <option>Vector Logos Ready (Google Drive / Cloud Link)</option>
+            <option>Logo Exists (Needs Visual Polish / Redesign)</option>
+            <option>No Logo (Require Full ABC Brand Identity)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="photography">Real photography &amp; visual media</label>
+          <select id="photography" name="photography">
+            <option value="">Select availability</option>
+            <option>Original Product &amp; Team Photos Available</option>
+            <option>Some Stock / Partial Photos Available</option>
+            <option>Require ABC Creative Media Production</option>
+          </select>
+          <input type="file" id="photoUpload" name="photoUpload" accept="image/*" multiple style="margin-top:8px;">
+          <span id="photoUploadFiles" style="font-size:12px; color:var(--mute);"></span>
+        </div>
+        <div class="field">
+          <label for="offerType">Primary business offer type</label>
+          <select id="offerType" name="offerType">
+            <option value="">Select offer type</option>
+            <option>BrandCode 360™ (Package 01)</option>
+            <option>TechCare Code™ (Package 02)</option>
+            <option>abc2host Hosting Packages</option>
+            <option>Customize Your Own Package</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ctaType">Primary call to action</label>
+          <select id="ctaType" name="ctaType">
+            <option value="">Select CTA</option>
+            <option>Book a Launch Call</option>
+            <option>Plan Your Market Launch</option>
+            <option>Claim Exclusive Offer</option>
+            <option>Talk to ABC Senior Team</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section" id="section-3">
+      <div class="section-head">
+        <span class="section-chip">3</span>
+        <div>
+          <h2>Content copy &amp; technical setup</h2>
+          <p>Copy status, raw files, hosting, and ad account access.</p>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field-grid cols-2" style="grid-column: 1 / -1;">
+          <div class="field">
+            <label for="copyStatus">Marketing copy &amp; brand story</label>
+            <select id="copyStatus" name="copyStatus">
+              <option value="">Select status</option>
+              <option>Full Copy &amp; Company Profile Ready</option>
+              <option>Request ABC Senior Team Copywriting</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="driveLink">Drive link (photos, logos, raw assets)</label>
+            <input type="url" id="driveLink" name="driveLink" placeholder="https://drive.google.com/...">
+          </div>
+        </div>
+
+        <div class="field-grid cols-2" style="grid-column: 1 / -1;">
+          <div class="field">
+            <label for="hosting">ABC2host hosting &amp; domain setup</label>
+            <select id="hosting" name="hosting">
+              <option value="">Select setup</option>
+              <option>Host on ABC2host Server (Full Management)</option>
+              <option>Migrate Existing Domain to ABC2host</option>
+              <option>Client Server (Provide Access Credentials)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="adAccess">Ad manager access</label>
+            <select id="adAccess" name="adAccess">
+              <option value="">Select access plan</option>
+              <option>Will Invite ABC Partner ID to Business Suite</option>
+              <option>Need ABC to Set Up New Ad Accounts</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Special project notes</label>
+          <textarea id="notes" name="notes" placeholder="Target audience, competitors, launch constraints, anything else the team should know before the first call."></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- ================= LIVE SUMMARY ================= -->
+  <div class="summary-wrap">
+    <div class="summary">
+      <div class="summary-top">
+        <h3>Live brief</h3>
+        <span id="fillCount">0 / 15</span>
+      </div>
+      <p class="summary-sub">Updates automatically as you fill in the form.</p>
+
+      <div id="summaryEmpty" class="summary-empty">
+        Your brief will appear here as you fill it in.
+      </div>
+
+      <dl id="summaryContent" style="display:none; margin:0;"></dl>
+
+      <div class="summary-actions">
+        <button type="button" class="btn btn-ghost" id="copyBtn">Copy brief to clipboard</button>
+        <button type="submit" form="briefForm" class="btn btn-primary" id="submitBtn">your request</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  American Brand Code — ABC2host. This brief is reviewed by a founder before any work begins.
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const FIELD_MAP = [
+    { id: 'clientName', label: 'Client / business name', group: 'Client profile' },
+    { id: 'projectScope', label: 'Primary project scope', group: 'Client profile' },
+    { id: 'region', label: 'Target region', group: 'Client profile' },
+    { id: 'status', label: 'Project status', group: 'Client profile' },
+    { id: 'budget', label: 'Budget / tier', group: 'Client profile' },
+    { id: 'startDate', label: 'Start date', group: 'Client profile' },
+    { id: 'deadline', label: 'Delivery deadline', group: 'Client profile' },
+    { id: 'logoAssets', label: 'Logo & assets', group: 'Brand & offer' },
+    { id: 'photography', label: 'Photography / media', group: 'Brand & offer' },
+    { id: 'offerType', label: 'Offer type', group: 'Brand & offer' },
+    { id: 'ctaType', label: 'Primary CTA', group: 'Brand & offer' },
+    { id: 'copyStatus', label: 'Marketing copy', group: 'Content & setup' },
+    { id: 'driveLink', label: 'Drive link', group: 'Content & setup' },
+    { id: 'hosting', label: 'Hosting & domain', group: 'Content & setup' },
+    { id: 'adAccess', label: 'Ad manager access', group: 'Content & setup' },
+  ];
+
+  const summaryEmpty = document.getElementById('summaryEmpty');
+  const summaryContent = document.getElementById('summaryContent');
+  const fillCount = document.getElementById('fillCount');
+  const toast = document.getElementById('toast');
+
+  function getValues() {
+    const values = {};
+    FIELD_MAP.forEach(f => {
+      const el = document.getElementById(f.id);
+      values[f.id] = el ? el.value.trim() : '';
+    });
+    values.notes = document.getElementById('notes').value.trim();
+    return values;
+  }
+
+  function renderSummary() {
+    const values = getValues();
+    const filled = FIELD_MAP.filter(f => values[f.id]);
+    fillCount.textContent = filled.length + ' / ' + FIELD_MAP.length;
+
+    if (filled.length === 0 && !values.notes) {
+      summaryEmpty.style.display = 'block';
+      summaryContent.style.display = 'none';
+      return;
+    }
+    summaryEmpty.style.display = 'none';
+    summaryContent.style.display = 'block';
+
+    const groups = {};
+    filled.forEach(f => {
+      if (!groups[f.group]) groups[f.group] = [];
+      groups[f.group].push(f);
+    });
+
+    let html = '';
+    Object.keys(groups).forEach(groupName => {
+      html += '<div class="summary-group"><h4>' + groupName + '</h4>';
+      groups[groupName].forEach(f => {
+        html += '<div class="summary-line"><dt>' + f.label + '</dt><dd>' + escapeHtml(values[f.id]) + '</dd></div>';
+      });
+      html += '</div>';
+    });
+
+    if (values.notes) {
+      html += '<div class="summary-group"><h4>Notes</h4><p class="summary-note">' + escapeHtml(values.notes) + '</p></div>';
+    }
+
+    summaryContent.innerHTML = html;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function buildPlainTextBrief() {
+    const values = getValues();
+    let lines = ['ABC2HOST CLIENT INTAKE BRIEF', ''];
+    let lastGroup = '';
+    FIELD_MAP.forEach(f => {
+      if (!values[f.id]) return;
+      if (f.group !== lastGroup) {
+        lines.push('-- ' + f.group.toUpperCase() + ' --');
+        lastGroup = f.group;
+      }
+      lines.push(f.label + ': ' + values[f.id]);
+    });
+    if (values.notes) {
+      lines.push('', '-- SPECIAL PROJECT NOTES --', values.notes);
+    }
+    return lines.join('\n');
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  document.getElementById('briefForm').addEventListener('input', renderSummary);
+
+  const photoUploadInput = document.getElementById('photoUpload');
+  const photoUploadFiles = document.getElementById('photoUploadFiles');
+  if (photoUploadInput) {
+    photoUploadInput.addEventListener('change', () => {
+      const names = Array.from(photoUploadInput.files).map(f => f.name);
+      photoUploadFiles.textContent = names.length ? names.length + ' file(s) selected: ' + names.join(', ') : '';
+    });
+  }
+
+  document.getElementById('copyBtn').addEventListener('click', async () => {
+    const text = buildPlainTextBrief();
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast('Brief copied to clipboard');
+    } catch (err) {
+      showToast('Could not copy — select and copy manually');
+    }
+  });
+
+  document.getElementById('briefForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const values = getValues();
+    const text = buildPlainTextBrief();
+    const subject = 'New ABC2host client brief' + (values.clientName ? ' — ' + values.clientName : '');
+    const mailto = 'mailto:contact@abc2host.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text);
+    showToast('Brief submitted — opening your email client to send it to ABC');
+    setTimeout(() => { window.location.href = mailto; }, 900);
+  });
+
+  // Progress rail: click to scroll, highlight active section on scroll
+  const railSteps = Array.from(document.querySelectorAll('.rail-step'));
+  railSteps.forEach(step => {
+    step.addEventListener('click', () => {
+      document.getElementById(step.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = ['section-1', 'section-2', 'section-3'].map(id => document.getElementById(id));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const step = railSteps.find(s => s.dataset.target === entry.target.id);
+      if (!step) return;
+      if (entry.isIntersecting) {
+        railSteps.forEach(s => s.classList.remove('active'));
+        step.classList.add('active');
+        const idx = sections.findIndex(sec => sec.id === entry.target.id);
+        railSteps.forEach((s, i) => {
+          if (i < idx) s.classList.add('done'); else if (i > idx) s.classList.remove('done');
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+  sections.forEach(sec => observer.observe(sec));
+
+  renderSummary();
+</script>
+
+</body>
+</html>
